@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Muhammad Muneeb Ur Rehman — Full-Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --accent: #00e5ff;
+    --accent2: #7b61ff;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --tag-bg: #1a1a2e;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── GRID BG ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(10,10,15,.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    color: var(--accent);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 48px 80px;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,229,255,.12) 0%, transparent 70%);
+    top: 50%; left: 10%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  .hero-glow2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(123,97,255,.1) 0%, transparent 70%);
+    bottom: 10%; right: 10%;
+    pointer-events: none;
+    animation: pulse 5s ease-in-out 1s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(0,229,255,.3);
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -3px;
+    color: var(--text);
+    animation: fadeUp 0.6s 0.1s ease both;
+    margin-bottom: 24px;
+  }
+
+  .hero-name span {
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 520px;
+    animation: fadeUp 0.6s 0.2s ease both;
+    margin-bottom: 40px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+    margin-bottom: 48px;
+  }
+
+  .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .hero-meta-item::before {
+    content: '◆';
+    color: var(--accent);
+    font-size: 8px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #000;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,229,255,.3);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .stat {
+    flex: 1;
+    max-width: 200px;
+    text-align: center;
+    padding: 32px 24px;
+    border-right: 1px solid var(--border);
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── SECTIONS ── */
+  section { position: relative; z-index: 1; }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 96px 48px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+
+  .section-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--text);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-list { display: flex; flex-direction: column; gap: 2px; }
+
+  .exp-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+    cursor: pointer;
+  }
+
+  .exp-item:hover { border-color: var(--accent); }
+
+  .exp-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    gap: 16px;
+  }
+
+  .exp-header-left { display: flex; flex-direction: column; gap: 4px; }
+
+  .exp-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .exp-company {
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .exp-header-right { text-align: right; flex-shrink: 0; }
+
+  .exp-period {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+
+  .exp-location {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .exp-toggle {
+    font-size: 18px;
+    color: var(--muted);
+    margin-left: 16px;
+    transition: transform 0.3s, color 0.2s;
+    flex-shrink: 0;
+  }
+
+  .exp-item.open .exp-toggle { transform: rotate(45deg); color: var(--accent); }
+
+  .exp-body {
+    display: none;
+    padding: 0 28px 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .exp-item.open .exp-body { display: block; }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .exp-bullets li {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .exp-bullets li::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2px;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+  }
+
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .project-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tech-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+
+  .project-card:hover .tech-tag {
+    border-color: rgba(0,229,255,.3);
+    color: var(--accent);
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--surface); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+  }
+
+  .skill-category-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .skill-tag {
+    font-size: 11px;
+    padding: 6px 12px;
+    background: rgba(0,229,255,.05);
+    border: 1px solid rgba(0,229,255,.15);
+    border-radius: 2px;
+    color: var(--text);
+    letter-spacing: 0.03em;
+    transition: all 0.2s;
+  }
+
+  .skill-tag:hover {
+    background: rgba(0,229,255,.12);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ── EDUCATION & CERTS ── */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  @media (max-width: 700px) { .edu-grid { grid-template-columns: 1fr; } }
+
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 32px;
+  }
+
+  .edu-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .edu-meta {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .edu-note {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .cert-list { display: flex; flex-direction: column; gap: 16px; }
+
+  .cert-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: border-color 0.2s;
+  }
+
+  .cert-item:hover { border-color: var(--accent); }
+
+  .cert-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .cert-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .cert-org {
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .cert-date { font-size: 11px; color: var(--muted); }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-wrapper { text-align: center; }
+
+  .contact-headline {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .contact-headline span { color: var(--accent); }
+
+  .contact-sub {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 48px;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 14px 24px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .contact-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,229,255,.15);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  footer span { color: var(--accent); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero-content, .section-inner { padding-left: 24px; padding-right: 24px; }
+    #hero { padding: 100px 24px 60px; }
+    .stats-bar { flex-wrap: wrap; }
+    .stat { min-width: 50%; }
+    .exp-header { flex-direction: column; align-items: flex-start; }
+    .exp-toggle { display: none; }
+    .exp-body { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MMR</div>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Available for opportunities</div>
+    <h1 class="hero-name">
+      Muhammad Muneeb
+      <span>Ur Rehman</span>
+    </h1>
+    <p class="hero-desc">Full-Stack Software Developer with 4 years of experience building stable, maintainable web applications — from backend APIs and database design to pixel-perfect frontends.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">📍 Sweden</div>
+      <div class="hero-meta-item">4 Years Experience</div>
+      <div class="hero-meta-item">Willing to relocate</div>
+      <div class="hero-meta-item">MSc Computer Science</div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">Get in touch →</a>
+      <a href="#experience" class="btn-outline">View work ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-number">4+</div>
+    <div class="stat-label">Years Experience</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">3</div>
+    <div class="stat-label">Companies</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">10+</div>
+    <div class="stat-label">Integrations Built</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">2</div>
+    <div class="stat-label">Live Products</div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="exp-list">
+
+      <div class="exp-item open">
+        <div class="exp-header" onclick="toggleExp(this)">
+          <div class="exp-header-left">
+            <div class="exp-role">Software Developer</div>
+            <div class="exp-company">Freelance</div>
+          </div>
+          <div class="exp-header-right">
+            <div class="exp-period">May 2026 – Present</div>
+            <div class="exp-location">Sweden</div>
+          </div>
+          <div class="exp-toggle">+</div>
+        </div>
+        <div class="exp-body">
+          <ul class="exp-bullets">
+            <li>Building full-stack applications with React.js and Next.js using component-based architecture, hooks, context, and state management</li>
+            <li>Developing responsive UIs with React.js and Tailwind CSS for fast, modern interfaces</li>
+            <li>Integrating RESTful APIs and third-party services within Next.js API routes</li>
+            <li>Implementing authentication and authorization using NextAuth.js and JWT</li>
+            <li>Optimizing performance through code splitting, lazy loading, and Next.js built-in image optimization</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header" onclick="toggleExp(this)">
+          <div class="exp-header-left">
+            <div class="exp-role">React JS Developer</div>
+            <div class="exp-company">Freelance</div>
+          </div>
+          <div class="exp-header-right">
+            <div class="exp-period">Feb 2026 – Apr 2026</div>
+            <div class="exp-location">Remote</div>
+          </div>
+          <div class="exp-toggle">+</div>
+        </div>
+        <div class="exp-body">
+          <ul class="exp-bullets">
+            <li>Developed and maintained responsive, scalable user interfaces using React.JS</li>
+            <li>Built reusable UI components to create seamless chatbot interactions and improve usability</li>
+            <li>Implemented frontend authentication flows, session handling, and state management</li>
+            <li>Optimized application performance and ensured responsive UX across all devices and browsers</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header" onclick="toggleExp(this)">
+          <div class="exp-header-left">
+            <div class="exp-role">Software Engineer</div>
+            <div class="exp-company">Technology Junction</div>
+          </div>
+          <div class="exp-header-right">
+            <div class="exp-period">Aug 2022 – Nov 2025</div>
+            <div class="exp-location">Rawalpindi, Pakistan</div>
+          </div>
+          <div class="exp-toggle">+</div>
+        </div>
+        <div class="exp-body">
+          <ul class="exp-bullets">
+            <li>Developed and maintained full-stack applications using React.JS, TypeScript, C# (.NET Core), and MS SQL Server</li>
+            <li>Served as sole PaymentTech/FinTech developer — full ownership of all payment integrations and financial workflows</li>
+            <li>Built backend integrations connecting payment providers, SMS, Email, Google Maps API, Firebase, and VoIP APIs</li>
+            <li>Built a full-stack dispatch and operations platform for Zasway (UK transportation company) — launched successfully and awarded Certificate of Achievement</li>
+            <li>Designed RESTful services, complex SQL queries, stored procedures, data modeling, and query optimization</li>
+            <li>Developed and maintained mobile applications using React JS Web View for Android & iOS</li>
+            <li>Developed background services for automated payments, flight status tracking, and reminders</li>
+            <li>Employee of the Quarter — December 2023</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header" onclick="toggleExp(this)">
+          <div class="exp-header-left">
+            <div class="exp-role">Android App Developer Intern</div>
+            <div class="exp-company">Filzbe</div>
+          </div>
+          <div class="exp-header-right">
+            <div class="exp-period">Internship</div>
+            <div class="exp-location">Rawalpindi, Pakistan</div>
+          </div>
+          <div class="exp-toggle">+</div>
+        </div>
+        <div class="exp-body">
+          <ul class="exp-bullets">
+            <li>Designed, developed, and maintained Android applications through the full mobile development lifecycle from implementation through testing and production support</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="background: var(--surface);">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <h2 class="section-title">Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-num">01</div>
+        <div class="project-name">Zasway – Dispatch & Operations</div>
+        <div class="project-desc">Full-stack platform built for a UK transportation company. Real-time operations management with Google Maps, VoIP, SMS/Email, and payment workflow integrations. Launched successfully in the UK; awarded Certificate of Achievement.</div>
+        <div class="project-stack">
+          <span class="tech-tag">React.js</span>
+          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">C# .NET</span>
+          <span class="tech-tag">MS SQL</span>
+          <span class="tech-tag">Google Maps API</span>
+          <span class="tech-tag">VoIP</span>
+          <span class="tech-tag">Firebase</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">02</div>
+        <div class="project-name">AI-Based Chatbot Application</div>
+        <div class="project-desc">Scalable AI-powered chatbot with a responsive, interactive React.js frontend. Designed for seamless conversational experiences with optimized UI/UX and efficient session handling.</div>
+        <div class="project-stack">
+          <span class="tech-tag">React.js</span>
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">AI/NLP APIs</span>
+          <span class="tech-tag">RESTful APIs</span>
+          <span class="tech-tag">JavaScript</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">03</div>
+        <div class="project-name">Cross-Platform Mobile App</div>
+        <div class="project-desc">Master's Final Year capstone — a full-stack iOS & Android app. Covered the complete development lifecycle: UI/UX design, RESTful API development, database schema design, authentication, and deployment.</div>
+        <div class="project-stack">
+          <span class="tech-tag">React Native</span>
+          <span class="tech-tag">ASP.NET Core</span>
+          <span class="tech-tag">MS SQL Server</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <h2 class="section-title">Skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+
+      <div>
+        <div class="skill-category-title">Frontend</div>
+        <div class="skill-tags">
+          <span class="skill-tag">React.js</span>
+          <span class="skill-tag">Next.js</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">HTML5</span>
+          <span class="skill-tag">CSS</span>
+          <span class="skill-tag">Tailwind CSS</span>
+          <span class="skill-tag">Bootstrap</span>
+          <span class="skill-tag">Angular</span>
+          <span class="skill-tag">React Native</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-category-title">Backend & APIs</div>
+        <div class="skill-tags">
+          <span class="skill-tag">C# / .NET Core</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">RESTful API</span>
+          <span class="skill-tag">Web API</span>
+          <span class="skill-tag">MVC</span>
+          <span class="skill-tag">JWT / Auth</span>
+          <span class="skill-tag">Swagger/OpenAPI</span>
+          <span class="skill-tag">Postman</span>
+          <span class="skill-tag">PHP</span>
+          <span class="skill-tag">Python</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-category-title">Database & Cloud</div>
+        <div class="skill-tags">
+          <span class="skill-tag">MS SQL Server</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Stored Procedures</span>
+          <span class="skill-tag">Firebase</span>
+          <span class="skill-tag">JSON</span>
+          <span class="skill-tag">Relational DBs</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-category-title">Tools & Integrations</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">Agile / Scrum</span>
+          <span class="skill-tag">Google Maps API</span>
+          <span class="skill-tag">VoIP APIs</span>
+          <span class="skill-tag">SMS / Email APIs</span>
+          <span class="skill-tag">PaymentTech</span>
+          <span class="skill-tag">FinTech</span>
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">OOP</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-category-title">Other Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">Kotlin</span>
+          <span class="skill-tag">C</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">Android</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-category-title">Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">English (Fluent)</span>
+          <span class="skill-tag">Swedish (Learning)</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION & CERTS -->
+<section id="education" style="background: var(--surface);">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <h2 class="section-title">Education & Certifications</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-card" style="margin-bottom: 24px;">
+          <div class="edu-icon">🎓</div>
+          <div class="edu-degree">Master of Computer Science</div>
+          <div class="edu-meta">2022 · Pakistan</div>
+          <div class="edu-note">Final Year Project: Cross-platform mobile app (React Native + ASP.NET Core + MS SQL Server) covering full development lifecycle including UI/UX, RESTful APIs, authentication, and deployment.</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-icon">🏆</div>
+          <div class="edu-degree">Employee of the Quarter</div>
+          <div class="edu-meta">December 2023 · Technology Junction</div>
+          <div class="edu-note">Recognised for outstanding contribution as Full-Stack Developer.</div>
+        </div>
+      </div>
+      <div>
+        <div class="cert-list">
+          <div class="cert-item">
+            <div class="cert-icon">📜</div>
+            <div>
+              <div class="cert-name">React Fundamentals</div>
+              <div class="cert-org">Hiring Fluency</div>
+              <div class="cert-date">February 21, 2026</div>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon">🏅</div>
+            <div>
+              <div class="cert-name">Certificate of Achievement — Zasway Launch</div>
+              <div class="cert-org">Technology Junction</div>
+              <div class="cert-date">December 21, 2023</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-wrapper">
+      <h2 class="contact-headline">Let's build<br/><span>something great.</span></h2>
+      <p class="contact-sub">Available for full-time roles and freelance projects. Based in Sweden, open to relocation.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:muhammad.muneeb0551@gmail.com">
+          ✉ muhammad.muneeb0551@gmail.com
+        </a>
+        <a class="contact-link" href="tel:+46765685545">
+          📞 +46 765 685 545
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built from CV · <span>Muhammad Muneeb Ur Rehman</span> · Sweden
+</footer>
+
+<script>
+  function toggleExp(header) {
+    const item = header.closest('.exp-item');
+    item.classList.toggle('open');
+  }
+
+  // Animate items into view on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.project-card, .exp-item, .edu-card, .cert-item, .skill-tag').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
